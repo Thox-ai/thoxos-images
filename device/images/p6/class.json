@@ -1,0 +1,10 @@
+{
+  "name": "p6",
+  "device_class": "performance-plus",
+  "cpu": "8-core hybrid Arm, 64-bit",
+  "ram_gb_floor": 6,
+  "storage": "64 GB flash floor, A/B rootfs slots plus persistent data partition",
+  "image_system": "Buildroot",
+  "ota": "RAUC A/B with health gates and automatic rollback",
+  "notes": "Highest device floor in Core v1: p4 baseline plus capture pipeline headroom. Category-level facts only."
+}

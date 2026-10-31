@@ -1,0 +1,288 @@
+{
+  "$schema": "./variants.schema.json",
+  "schema_version": 1,
+  "product": "ThoxOS Vibe Rust Edition",
+  "name": "thoxos",
+  "variants": {
+    "x86_64-dual": {
+      "label": "KnightHub dual-arch USB-C SSD image",
+      "arch": "x86_64",
+      "profile": "knighthub",
+      "distribution": "arch",
+      "kernel": "linux-lts",
+      "kernel_headers": "linux-lts-headers",
+      "repositories": [
+        "core",
+        "extra"
+      ],
+      "image_file": "thoxos-x86_64-dual-{version}.img",
+      "layout": "dual",
+      "cmdline": "root=PARTLABEL=THOXOS-X86 rw nvidia_drm.modeset=1 nvidia_drm.fbdev=1 quiet splash",
+      "cmdline_safe": "root=PARTLABEL=THOXOS-X86 rw nomodeset",
+      "initramfs": {
+        "tool": "mkinitcpio",
+        "hooks": [
+          "systemd",
+          "autodetect",
+          "microcode",
+          "modconf",
+          "kms",
+          "keyboard",
+          "block",
+          "filesystems"
+        ],
+        "modules": [
+          "nvidia",
+          "nvidia_modeset",
+          "nvidia_uvm",
+          "nvidia_drm",
+          "btrfs"
+        ]
+      },
+      "packages_extra": [
+        "nvidia-open-lts",
+        "nvidia-utils",
+        "nvidia-settings",
+        "libva-nvidia-driver",
+        "nvtop"
+      ],
+      "placeholders": {
+        "ID_LIKE": "arch",
+        "VARIANT": "KnightHub",
+        "BACKEND": "llama-server-cuda"
+      },
+      "notes": "Includes the aarch64-asahi boot and root partitions when they are available at assembly time; otherwise the ARM partitions are created empty and recorded as such."
+    },
+    "x86_64-t2": {
+      "label": "Mac mini 2018 T2 installer image",
+      "arch": "x86_64",
+      "profile": "macmini-t2",
+      "distribution": "arch",
+      "kernel": "linux-t2",
+      "kernel_headers": "linux-t2-headers",
+      "repositories": [
+        "core",
+        "extra",
+        "arch-mact2"
+      ],
+      "image_file": "thoxos-x86_64-t2-{version}.img",
+      "layout": "x86",
+      "cmdline": "root=PARTLABEL=THOXOS-X86 rw intel_iommu=on iommu=pt pcie_ports=compat quiet splash",
+      "cmdline_safe": "root=PARTLABEL=THOXOS-X86 rw intel_iommu=on iommu=pt pcie_ports=compat nomodeset",
+      "initramfs": {
+        "tool": "mkinitcpio",
+        "hooks": [
+          "systemd",
+          "autodetect",
+          "microcode",
+          "modconf",
+          "kms",
+          "keyboard",
+          "block",
+          "filesystems"
+        ],
+        "modules": [
+          "apple-bce",
+          "btrfs"
+        ]
+      },
+      "packages_extra": [
+        "apple-t2-audio-config",
+        "apple-bcm-firmware-fetcher",
+        "intel-media-driver"
+      ],
+      "placeholders": {
+        "ID_LIKE": "arch",
+        "VARIANT": "MacMiniT2",
+        "BACKEND": "llama-server-cpu"
+      },
+      "notes": "arch-mact2 is a third-party repository (mirror.funami.tech). The engineering preview imports its key where possible and documents SigLevel as the fallback."
+    },
+    "aarch64-asahi": {
+      "label": "MacBook M3 Asahi root image",
+      "arch": "aarch64",
+      "profile": "asahi",
+      "distribution": "fedora",
+      "release": "44",
+      "kernel": "kernel-16k",
+      "kernel_headers": "kernel-16k-devel",
+      "repositories": [
+        "fedora",
+        "updates",
+        "copr:@asahi/kernel",
+        "copr:@asahi/u-boot",
+        "copr:@asahi/fedora-remix-scripts",
+        "copr:@asahi/fedora-remix-branding",
+        "asahi-linux"
+      ],
+      "image_file": "thoxos-aarch64-asahi-{version}.zip",
+      "layout": "asahi-installer",
+      "cmdline": "root=PARTLABEL=THOXOS-ARM rw quiet splash",
+      "cmdline_safe": "root=PARTLABEL=THOXOS-ARM rw nomodeset",
+      "initramfs": {
+        "tool": "dracut",
+        "hooks": [],
+        "modules": [
+          "btrfs"
+        ]
+      },
+      "packages_extra": [
+        "asahi-scripts",
+        "asahi-fwupdate",
+        "asahi-audio",
+        "speakersafetyd",
+        "alsa-ucm-asahi",
+        "m1n1",
+        "uboot-images-armv8",
+        "update-m1n1",
+        "mesa-dri-drivers"
+      ],
+      "placeholders": {
+        "ID_LIKE": "fedora",
+        "VARIANT": "MacBookM3",
+        "BACKEND": "llama-server-cpu"
+      },
+      "notes": "COSMIC is software rendered on M3 Pro today; the Apple GPU driver for M3 is still to be announced in the Asahi line. Sleep and HDMI do not work."
+    },
+    "x86_64-desktop-debian": {
+      "label": "ThoxOS Desktop Edition (Debian 13, KDE Plasma 6.3)",
+      "arch": "x86_64",
+      "profile": "desktop-debian",
+      "distribution": "debian",
+      "release": "trixie",
+      "kernel": "linux-image-amd64",
+      "kernel_headers": "linux-headers-amd64",
+      "repositories": [
+        "main",
+        "contrib",
+        "non-free",
+        "non-free-firmware",
+        "nvidia-cuda-debian12 (build-time only)",
+        "microsoft-code (build-time only)",
+        "tailscale (build-time only)",
+        "nvidia-container-toolkit (build-time only)"
+      ],
+      "image_file": "thoxos-x86_64-desktop-debian-{version}.img",
+      "layout": "dual-debian",
+      "cmdline": "root=PARTLABEL=THOXOS-X86 rw quiet splash nvidia_drm.modeset=1",
+      "cmdline_safe": "root=PARTLABEL=THOXOS-X86 rw nomodeset",
+      "initramfs": {
+        "tool": "initramfs-tools",
+        "hooks": [
+          "plymouth",
+          "btrfs",
+          "cryptsetup"
+        ],
+        "modules": [
+          "virtio_blk",
+          "virtio_net",
+          "virtio_gpu",
+          "virtio_pci",
+          "btrfs",
+          "nvidia",
+          "nvidia_modeset",
+          "nvidia_uvm",
+          "nvidia_drm"
+        ]
+      },
+      "packages_extra": [
+        "nvidia-open-570",
+        "cuda-toolkit-12-8",
+        "nvidia-container-toolkit",
+        "code",
+        "tailscale"
+      ],
+      "placeholders": {
+        "ID_LIKE": "debian",
+        "VARIANT": "Desktop",
+        "BACKEND": "llama-server-cuda"
+      },
+      "notes": "Desktop Edition: Debian 13 trixie, Plasma 6.3.6, SDDM greeter, TXF 5.0 on every surface (docs/desktop/DESIGN.md section 7). Vendor repositories are added at build time only and removed before the root is finished; the image needs no network. NVIDIA 570 comes from the debian12 CUDA repo because the debian13 repo no longer carries the 570 branch. Root is the dual layout with a 48 GiB THOXOS-X86 and a THOXESP label. Plasma Wayland is the default session; the X11 session is the VM and fallback session."
+    },
+    "x86_64-desktop-debian-cosmic": {
+      "label": "ThoxOS Desktop Edition (Debian 13, COSMIC Epoch)",
+      "arch": "x86_64",
+      "profile": "desktop-debian",
+      "distribution": "debian",
+      "release": "trixie",
+      "kernel": "linux-image-amd64",
+      "kernel_headers": "linux-headers-amd64",
+      "repositories": [
+        "main",
+        "contrib",
+        "non-free",
+        "non-free-firmware",
+        "nvidia-cuda-debian12 (build-time only)",
+        "microsoft-code (build-time only)",
+        "tailscale (build-time only)",
+        "nvidia-container-toolkit (build-time only)",
+        "synex-cosmic-1.8.0 (build-time vendored pool only)"
+      ],
+      "image_file": "thoxos-x86_64-desktop-debian-cosmic-{version}.img",
+      "layout": "dual-debian",
+      "cmdline": "root=PARTLABEL=THOXOS-X86 rw quiet splash nvidia_drm.modeset=1 nvidia_drm.fbdev=1",
+      "cmdline_safe": "root=PARTLABEL=THOXOS-X86 rw nomodeset",
+      "initramfs": {
+        "tool": "initramfs-tools",
+        "hooks": [
+          "plymouth",
+          "btrfs",
+          "cryptsetup"
+        ],
+        "modules": [
+          "virtio_blk",
+          "virtio_net",
+          "virtio_pci",
+          "virtio_gpu",
+          "virtio_console",
+          "btrfs",
+          "nvidia",
+          "nvidia_modeset",
+          "nvidia_uvm",
+          "nvidia_drm"
+        ]
+      },
+      "packages_extra": [
+        "nvidia-open-580",
+        "cuda-toolkit-12-8",
+        "nvidia-container-toolkit",
+        "code",
+        "tailscale",
+        "cosmic-session"
+      ],
+      "placeholders": {
+        "ID_LIKE": "debian",
+        "VARIANT": "Desktop",
+        "BACKEND": "llama-server-cuda"
+      },
+      "notes": "Desktop Edition, COSMIC stack (DESIGN.md section 12, the adopted direction; the Plasma variant is the fallback): Debian 13 trixie, COSMIC Epoch 1.8.0+synex1 from a build-time vendored Synex .deb pool (no runtime Synex dependency), cosmic-greeter on greetd, TXF 5.0 themes generated from txf-tokens.json as COSMIC RON. Wayland only: no X11 session, no global menu, window controls stay right-side (named deviations vs the Sadie frames, no fork). NVIDIA ships the 580 production branch (the spec'd 570 open module does not compile on trixie's 6.12 headers; 580 satisfies cosmic-comp's 555+ explicit-sync floor); the NVIDIA modules are baked into the initramfs for early KMS. Boot per section 8/KERNEL.md: kernel-install layout=uki wiring, UKI .splash BMP, Type #2 entries in EFI/Linux. Root is the dual layout with a 48 GiB THOXOS-X86 and a THOXESP label."
+    }
+  },
+  "common": {
+    "desktop": "cosmic",
+    "greeter": "cosmic-greeter",
+    "services_enabled": [
+      "greetd",
+      "thoxd",
+      "thox-firstboot",
+      "NetworkManager",
+      "systemd-zram-setup@zram0",
+      "systemd-timesyncd",
+      "bluetooth",
+      "sshd",
+      "tailscaled",
+      "docker"
+    ],
+    "rust_binaries": [
+      "thoxd",
+      "thox",
+      "thoxos-shell"
+    ],
+    "install_script": "/usr/lib/thoxos/thox-install.sh",
+    "data_partition": {
+      "label": "THOXDATA",
+      "filesystem": "btrfs",
+      "repart": "/usr/lib/repart.d/50-thoxdata.conf"
+    }
+  }
+}

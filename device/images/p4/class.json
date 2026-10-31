@@ -1,0 +1,10 @@
+{
+  "name": "p4",
+  "device_class": "performance",
+  "cpu": "8-core hybrid Arm, 64-bit",
+  "ram_gb_floor": 4,
+  "storage": "32 GB flash floor, A/B rootfs slots plus persistent data partition",
+  "image_system": "Buildroot",
+  "ota": "RAUC A/B with health gates and automatic rollback",
+  "notes": "Mid-tier ThoxOS Core target. Adds ThoxBeam Local and ThoxBridge local services over the e2 baseline. Category-level facts only."
+}

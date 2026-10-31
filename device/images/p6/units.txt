@@ -1,0 +1,14 @@
+# Expected systemd units for class p6 - CI assertion source.
+# One unit per line. A trailing " (enabled: multi-user.target)" marker means
+# the image build MUST install the unit's multi-user.target.wants symlink.
+# See images/README.md for the convention. thoxos-portal MUST carry the
+# marker in every class (regression guard for the historical portal defect).
+thoxd.service (enabled: multi-user.target)
+thoxos-portal.service (enabled: multi-user.target)
+meshstack-local.service (enabled: multi-user.target)
+thox-entitlement-agent.service (enabled: multi-user.target)
+thox-kvd.service (enabled: multi-user.target)
+thoxbeam-local.service (enabled: multi-user.target)
+thoxbridge-local.service (enabled: multi-user.target)
+thox-capture.service (enabled: multi-user.target)
+rauc.service (enabled: multi-user.target)

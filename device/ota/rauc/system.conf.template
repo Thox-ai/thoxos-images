@@ -1,0 +1,55 @@
+# ThoxOS Core - RAUC system.conf TEMPLATE
+# Staging template: rendered per class at image build time. Placeholders in
+# {{DOUBLE_BRACES}} are substituted by the image build; the file that ships
+# on a device contains no placeholders.
+# Generic device paths only: no board or SoC names.
+
+[system]
+# Must match the "compatible" string in every bundle manifest for this class.
+compatible={{THOX_CLASS_COMPATIBLE}}
+# Bootloader backend: u-boot environment based slot selection.
+bootloader=uboot
+# Persistent data partition: holds RAUC status, health-gate results and
+# user data across A/B swaps. Never written by a bundle.
+mountprefix=/run/rauc
+grubenv=grubenv
+statusfile=/data/rauc/status
+
+[keyring]
+# Bundle signature verification. Bundles are accepted ONLY if their CMS
+# signature verifies against this keyring. Hash verification (manifest
+# hashes for every image in the bundle) is mandatory in RAUC and is not
+# optional: a bundle whose image hash mismatches its signed manifest is
+# rejected before anything is written.
+path=/etc/rauc/keyring.pem
+check-crl=true
+
+[handlers]
+# Health gate: runs after a bundle is installed and after the first boot of
+# the new slot (see ota/README.md). A failing gate marks the slot bad.
+post-install=/usr/lib/rauc/thox-post-install
+pre-install=/usr/lib/rauc/thox-pre-install
+
+[slot.rootfs.0]
+# Slot A
+device=/dev/disk/by-partlabel/rootfs.0
+type=raw
+bootname=A
+
+[slot.rootfs.1]
+# Slot B
+device=/dev/disk/by-partlabel/rootfs.1
+type=raw
+bootname=B
+
+[slot.appfs.0]
+# Application/data overlay paired with rootfs slot A (optional per class).
+device=/dev/disk/by-partlabel/appfs.0
+type=ext4
+parent=rootfs.0
+
+[slot.appfs.1]
+# Application/data overlay paired with rootfs slot B (optional per class).
+device=/dev/disk/by-partlabel/appfs.1
+type=ext4
+parent=rootfs.1

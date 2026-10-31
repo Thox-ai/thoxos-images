@@ -1,0 +1,10 @@
+{
+  "name": "e2",
+  "device_class": "entry",
+  "cpu": "quad-core Arm, 64-bit",
+  "ram_gb_floor": 2,
+  "storage": "16 GB flash floor, A/B rootfs slots plus persistent data partition",
+  "image_system": "Buildroot",
+  "ota": "RAUC A/B with health gates and automatic rollback",
+  "notes": "Smallest ThoxOS Core target. Portal, MeshStack Local, local inference glue and OTA are mandatory at this floor; no desktop stack. Category-level facts only."
+}

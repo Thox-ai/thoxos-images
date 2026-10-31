@@ -1,0 +1,10 @@
+# Expected systemd units for class qemu - CI assertion source.
+# The qemu class intentionally mirrors the e2 unit set so CI exercises the
+# same services that ship on the smallest physical class.
+# thoxos-portal MUST carry the multi-user.target enablement marker here too.
+thoxd.service (enabled: multi-user.target)
+thoxos-portal.service (enabled: multi-user.target)
+meshstack-local.service (enabled: multi-user.target)
+thox-entitlement-agent.service (enabled: multi-user.target)
+thox-kvd.service (enabled: multi-user.target)
+rauc.service (enabled: multi-user.target)

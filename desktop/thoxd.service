@@ -1,0 +1,42 @@
+[Unit]
+Description=ThoxOS daemon: local inference supervisor and loopback API
+Documentation=https://thox.ai
+After=network-online.target thox-firstboot.service
+Wants=network-online.target thox-firstboot.service
+
+[Service]
+Type=simple
+User=thox
+Group=thox
+SupplementaryGroups=video render
+WorkingDirectory=/var/lib/thox
+Environment=THOXD_CONFIG=/etc/thoxos/thoxd.toml
+Environment=THOX_DATA_DIR=/var/lib/thox
+ExecStart=/usr/bin/thoxd --config /etc/thoxos/thoxd.toml
+Restart=on-failure
+RestartSec=2
+UMask=0027
+
+# Hardening. thoxd binds loopback only (refused otherwise in crates/thoxd).
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/thox
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

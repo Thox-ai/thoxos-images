@@ -1,0 +1,50 @@
+# ThoxOS Core - Buildroot config fragment - class e2
+# STAGING FRAGMENT: this is NOT a complete, built image configuration.
+# It is merged over a pinned Buildroot defconfig at image build time.
+# Category-level only: no board or SoC names appear in this tree.
+#
+# Class profile: quad-core Arm (64-bit), 2 GB RAM floor.
+
+# --- Target architecture ---
+BR2_aarch64=y
+BR2_cortex_a53=y
+BR2_ARM_FPU_VFPV4=y
+
+# --- Toolchain (external, pinned, reproducible) ---
+BR2_TOOLCHAIN_EXTERNAL=y
+BR2_TOOLCHAIN_EXTERNAL_PREINSTALLED=y
+BR2_TOOLCHAIN_EXTERNAL_GLIBC=y
+BR2_TOOLCHAIN_EXTERNAL_CXX=y
+BR2_OPTIMIZE_S=y
+
+# --- Kernel (linux-thox LTS, config fragment lives with the kernel tree) ---
+BR2_LINUX_KERNEL=y
+BR2_LINUX_KERNEL_CUSTOM_VERSION=y
+BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y
+BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="board/thox/e2/linux.fragment"
+BR2_LINUX_KERNEL_INSTALL_TARGET=y
+
+# --- Init / system ---
+BR2_INIT_SYSTEMD=y
+BR2_TARGET_GENERIC_HOSTNAME="thox-e2"
+BR2_TARGET_GENERIC_PASSWD_SHA256=y
+BR2_SYSTEM_DHCP="systemd-networkd"
+
+# --- Filesystem: A/B rootfs slots are provisioned by RAUC (see ota/) ---
+BR2_TARGET_ROOTFS_SQUASHFS=y
+BR2_TARGET_ROOTFS_SQUASHFS4_ZSTD=y
+BR2_TARGET_ROOTFS_TAR=y
+
+# --- THOX packages (staging selections; package recipes land in thoxd/) ---
+# BR2_PACKAGE_THOXD=y                  core system daemon + local API
+# BR2_PACKAGE_THOXOS_PORTAL=y          device portal + first-boot (web UI)
+# BR2_PACKAGE_MESHSTACK_LOCAL=y        discovery + WireGuard local mesh
+# BR2_PACKAGE_THOX_ENTITLEMENT_AGENT=y signed offline entitlement check
+# BR2_PACKAGE_THOK_KVD=y               local key-value daemon (thox-kvd v1)
+# BR2_PACKAGE_RAUC=y                   A/B OTA client (see ../ota/rauc/)
+# BR2_PACKAGE_WIREGUARD_TOOLS=y        MeshStack Local transport
+# BR2_PACKAGE_SYSTEMD_NETWORKD=y
+# BR2_PACKAGE_OPENSSH=y                LAN admin access (key-only)
+
+# --- Size discipline for the 2 GB floor: no desktop stack, no X/Wayland ---
+# BR2_PACKAGE_XORG7 is not set

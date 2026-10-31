@@ -1,0 +1,10 @@
+{
+  "name": "qemu",
+  "device_class": "virtual-lab",
+  "cpu": "virtual quad-core Arm, 64-bit (QEMU virt machine)",
+  "ram_gb_floor": 2,
+  "storage": "16 GB virtual disk default (qcow2), A/B slots emulated as partitions",
+  "image_system": "Buildroot",
+  "ota": "RAUC A/B with health gates and automatic rollback (emulated slots)",
+  "notes": "Virtual device lab and CI target only. Results here qualify software behaviour, never physical hardware. Category-level facts only."
+}
