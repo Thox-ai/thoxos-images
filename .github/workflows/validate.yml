@@ -1,0 +1,24 @@
+# Definition gates for thoxos-images. Builds and boots nothing: it runs the
+# device-class validator, its unittest suite, and the desktop definition
+# consistency checks (stdlib Python only, no network, no secrets).
+name: validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  definitions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Device-class validator (27 checks)
+        run: python3 device/images/validate.py
+      - name: Device validator unit tests
+        run: python3 device/images/test_validate.py
+      - name: Desktop definition consistency checks
+        run: python3 desktop/check_definitions.py
+      - name: Desktop check unit tests
+        run: python3 desktop/test_check_definitions.py

@@ -11,8 +11,18 @@ definition files (hashes in the programme release manifest).
 ## Tests
 
 ```sh
-python3 device/images/validate.py    # 27/27
+python3 device/images/validate.py              # 27/27
+python3 device/images/test_validate.py         # validator guard tests
+python3 desktop/check_definitions.py           # desktop cross-file consistency
+python3 desktop/test_check_definitions.py      # desktop check guard tests
 ```
+
+`desktop/check_definitions.py` checks the desktop registry, mkosi
+configs, repart layout and thoxd unit against each other (root
+PARTLABELs, safe-graphics cmdline, ESP label, NVIDIA branch, greeter
+packages, layout size vs the recorded RC image size). Known upstream
+drift is reported as KNOWN, never PASS, and a stale known-drift entry
+fails the run. CI (`.github/workflows/validate.yml`) runs all four.
 
 Any change to a class definition must keep the validator green,
 including its regression guards (portal enablement, RAUC A/B slots).
