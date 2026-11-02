@@ -70,6 +70,14 @@ THOX trademark policy applies: the license covers the code, not the
 THOX marks. Publishing and announcement decisions for THOX programmes
 are made by the THOX.ai founders.
 
+## Research
+
+The architecture, evidence boundaries and validation protocol for this work are documented in:
+
+**ThoxOS and ThoxInux: Architecture, Evidence, and a Validation Protocol for Local-First AI** (public technical draft, version 0.2.0-review, 1 November 2026), Craig Ross and Tommy Xaypanya, THOX.ai LLC. Paper, source and evidence ledger: https://github.com/ttracx/thox-research-paper/tree/main/papers/thoxos — Release: https://github.com/ttracx/thox-research-paper/releases/tag/thoxos-0.2.0-review
+
+Status: public technical draft; experimental validation is incomplete; not peer reviewed.
+
 ## Licensing
 
 Device definitions and the OTA template: Apache-2.0 (thoxos-core).
