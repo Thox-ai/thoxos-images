@@ -74,7 +74,7 @@ are made by the THOX.ai founders.
 
 The architecture, evidence boundaries and validation protocol for this work are documented in:
 
-**ThoxOS and ThoxInux: Architecture, Evidence, and a Validation Protocol for Local-First AI** (public technical draft, version 0.2.0-review, 1 November 2026), Craig Ross and Tommy Xaypanya, THOX.ai LLC. Paper, source and evidence ledger: https://github.com/ttracx/thox-research-paper/tree/main/papers/thoxos — Release: https://github.com/ttracx/thox-research-paper/releases/tag/thoxos-0.2.0-review
+**ThoxOS and ThoxInux: Architecture, Evidence, and a Validation Protocol for Local-First AI** (public technical draft, version 0.2.0-review, 1 November 2026), Craig Ross and Tommy Xaypanya, THOX.ai LLC. Paper, source and evidence ledger: https://github.com/ttracx/thox-research-paper/tree/main/papers/thoxos — Release: https://github.com/ttracx/thox-research-paper/releases/tag/thoxos-0.2.0-review — DOI: https://doi.org/10.5281/zenodo.23876230
 
 Status: public technical draft; experimental validation is incomplete; not peer reviewed.
 
